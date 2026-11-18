@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python-testing-lab"
+version = "0.1.0"
+description = "Lab 6 - Coverage Testing with pytest"
+requires-python = ">=3.9"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Plain `pytest` already measures branch coverage for src/.
+# --strict-markers makes a misspelled marker an error instead of a silent typo.
+addopts = "--tb=short --cov=src --cov-branch --strict-markers"
+# Custom markers (annotations) used in this lab. Run a group with:  pytest -m bank
+markers = [
+    "bank: tests for BankAccount",
+    "text: tests for TextProcessor",
+    "edge: edge-case inputs (zero, negative, empty, boundaries)",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["src"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
